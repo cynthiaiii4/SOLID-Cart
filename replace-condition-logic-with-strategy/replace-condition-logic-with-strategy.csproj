@@ -10,8 +10,9 @@
         <AppDesignerFolder>Properties</AppDesignerFolder>
         <RootNamespace>replace_condition_logic_with_strategy</RootNamespace>
         <AssemblyName>replace_condition_logic_with_strategy</AssemblyName>
-        <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+        <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
+        <LangVersion>5</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
