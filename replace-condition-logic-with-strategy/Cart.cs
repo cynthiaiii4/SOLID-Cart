@@ -8,42 +8,75 @@ namespace replace_condition_logic_with_strategy
 {
     public class Cart
     {
-        public double shippingFee(string shipper, double length, double width, double height, double weight)
+        private class GoodsFeeInfo
         {
+            public double Length { get; set; }
+            public double Width { get; set; }
+            public double Height { get; set; }
+            public double Weight { get; set; }
+
+        }
+        public double ShippingFee(string shipper, double length, double width, double height, double weight)
+        {
+            double finalFee;
+            var goodsFeeInfo = new GoodsFeeInfo
+            {
+                Length = length,
+                Width = width,
+                Height = height,
+                Weight = weight,
+            };
+
             if (shipper.Equals("black cat"))
             {
-                if (weight > 20)
-                {
-                    return 500;
-                }
-                else
-                {
-                    return 100 + weight * 10;
-                }
+                finalFee = BlackCatFee(goodsFeeInfo);
             }
             else if (shipper.Equals("hsinchu"))
             {
-                double size = length * width * height;
-                if (length > 100 || width > 100 || height > 100)
-                {
-                    return size * 0.00002 * 1100 + 500;
-                }
-                else
-                {
-                    return size * 0.00002 * 1200;
-                }
+                finalFee = Hsinchu(goodsFeeInfo);
             }
             else if (shipper.Equals("post office"))
             {
-                double feeByWeight = 80 + weight * 10;
-                double size = length * width * height;
-                double feeBySize = size * 0.00002 * 1100;
-                return feeByWeight < feeBySize ? feeByWeight : feeBySize;
+                finalFee = PostOffice(goodsFeeInfo);
             }
             else
             {
                 throw new ArgumentException("shipper not exist");
             }
+            return finalFee;
+        }
+
+        private double BlackCatFee(GoodsFeeInfo goodsFeeInfo)
+        {
+            if (goodsFeeInfo.Weight > 20)
+            {
+                return 500;
+            }
+            else
+            {
+                return 100 + goodsFeeInfo.Weight * 10;
+            }
+        }
+
+        private double Hsinchu(GoodsFeeInfo goodsFeeInfo)
+        {
+            double size = goodsFeeInfo.Length * goodsFeeInfo.Width * goodsFeeInfo.Height;
+            if (goodsFeeInfo.Length > 100 || goodsFeeInfo.Width > 100 || goodsFeeInfo.Height > 100)
+            {
+                return size * 0.00002 * 1100 + 500;
+            }
+            else
+            {
+                return size * 0.00002 * 1200;
+            }
+        }
+
+        private double PostOffice(GoodsFeeInfo goodsFeeInfo)
+        {
+            double feeByWeight = 80 + goodsFeeInfo.Weight * 10;
+            double size = goodsFeeInfo.Length * goodsFeeInfo.Width * goodsFeeInfo.Height;
+            double feeBySize = size * 0.00002 * 1100;
+            return feeByWeight < feeBySize ? feeByWeight : feeBySize;
         }
     }
 }
